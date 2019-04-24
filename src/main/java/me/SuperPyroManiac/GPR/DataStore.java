@@ -25,6 +25,9 @@ public class DataStore
     public boolean cfgIgnoreClaimSize;
     public boolean cfgAllowSellingParentAC;
     public boolean cfgTransferClaimBlocks;
+    
+    public boolean cfgMessageOwner;
+    public boolean cfgBroadcastSell;
 
     public DataStore(GPRealEstate plugin)
     {

@@ -68,3 +68,8 @@ out/
 target/
 *.MF
 *.name
+
+# eclipse files
+.settings/*
+.classpath
+.project

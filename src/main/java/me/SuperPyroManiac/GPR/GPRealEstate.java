@@ -8,16 +8,11 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginLoader;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class GPRealEstate
@@ -125,6 +120,10 @@ public class GPRealEstate
         this.dataStore.cfgAllowSellingParentAC = config.getBoolean("GPRealEstate.Rules.AllowSellingParentAC", false);
         this.dataStore.cfgIgnoreClaimSize = config.getBoolean("GPRealEstate.Rules.IgnoreSizeLimit", false);
         this.dataStore.cfgTransferClaimBlocks = config.getBoolean("GPRealEstate.Rules.TransferClaimBlocks", true);
+        
+        // EtienneDx
+        this.dataStore.cfgMessageOwner = config.getBoolean("GPRealEstate.Messaging.MessageOwner", true);
+        this.dataStore.cfgBroadcastSell = config.getBoolean("GPRealEstate.Messaging.BroadcastSell", true);
 
         if (!reload) {
             this.log.info("Signs will be using the keywords \"" + this.dataStore.cfgSignShort + "\" or \"" + this.dataStore.cfgSignLong + "\"");
@@ -140,6 +139,9 @@ public class GPRealEstate
         outConfig.set("GPRealEstate.Rules.IgnoreSizeLimit", Boolean.valueOf(this.dataStore.cfgIgnoreClaimSize));
         outConfig.set("GPRealEstate.Rules.AllowSellingParentAC", Boolean.valueOf(this.dataStore.cfgAllowSellingParentAC));
         outConfig.set("GPRealEstate.Rules.TransferClaimBlocks", this.dataStore.cfgTransferClaimBlocks);
+        
+        outConfig.set("GPRealEstate.Messaging.MessageOwner", this.dataStore.cfgMessageOwner);
+        outConfig.set("GPRealEstate.Messaging.BroadcastSell", this.dataStore.cfgBroadcastSell);
         try
         {
             outConfig.save(this.dataStore.configFilePath);
