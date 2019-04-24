@@ -475,6 +475,19 @@ public class GPREListener
                                                         "Y: " + player.getLocation().getBlockY() + ", " +
                                                         "Z: " + player.getLocation().getBlockZ() + "] " +
                                                         "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                        if(this.plugin.dataStore.cfgMessageOwner)
+                                        {
+                                        	Player oldOwner = Bukkit.getPlayer(sign.getLine(2));
+                                        	if(oldOwner != null)
+                                        	{
+                                        		oldOwner.sendMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has purchased your subclaim at " +
+                                                        "[" + player.getLocation().getWorld().getName() + ", " +
+                                                        "X: " + player.getLocation().getBlockX() + ", " +
+                                                        "Y: " + player.getLocation().getBlockY() + ", " +
+                                                        "Z: " + player.getLocation().getBlockZ() + "] for " +
+                                                        "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                        	}
+                                        }
                                     }
                                 }
                             }
