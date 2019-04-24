@@ -155,12 +155,12 @@ public class GPREListener
                     
                     if(this.plugin.dataStore.cfgBroadcastSell)
                     {
-                    	Bukkit.broadcastMessage(player.getDisplayName() + " has made a claim for sale at [" +
+                    	Bukkit.broadcastMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has made a claim for sale at [" +
                                 player.getLocation().getWorld().getName() + ", " +
                                 "X: " + player.getLocation().getBlockX() + ", " +
                                 "Y: " + player.getLocation().getBlockY() + ", " +
                                 "Z: " + player.getLocation().getBlockZ() + "] " +
-                                "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                "Price: " + ChatColor.GREEN + price + " " + GPRealEstate.econ.currencyNamePlural());
                     }
                 }
                 else if (claim.isAdminClaim())
@@ -186,12 +186,12 @@ public class GPREListener
                             
                             if(this.plugin.dataStore.cfgBroadcastSell)
                             {
-                            	Bukkit.broadcastMessage(player.getDisplayName() + " has made an admin claim for sale at [" +
+                            	Bukkit.broadcastMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has made an admin claim for sale at [" +
                                         player.getLocation().getWorld().getName() + ", " +
                                         "X: " + player.getLocation().getBlockX() + ", " +
                                         "Y: " + player.getLocation().getBlockY() + ", " +
                                         "Z: " + player.getLocation().getBlockZ() + "] " +
-                                        "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                        "Price: " + ChatColor.GREEN + price + " " + GPRealEstate.econ.currencyNamePlural());
                             }
                         }
                         else
@@ -233,12 +233,12 @@ public class GPREListener
                     
                     if(this.plugin.dataStore.cfgBroadcastSell)
                     {
-                    	Bukkit.broadcastMessage(player.getDisplayName() + " has made an admin subclaim access for sale at [" +
+                    	Bukkit.broadcastMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has made an admin subclaim access for sale at [" +
                                 player.getLocation().getWorld().getName() + ", " +
                                 "X: " + player.getLocation().getBlockX() + ", " +
                                 "Y: " + player.getLocation().getBlockY() + ", " +
                                 "Z: " + player.getLocation().getBlockZ() + "] " +
-                                "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                "Price: " + ChatColor.GREEN + price + " " + GPRealEstate.econ.currencyNamePlural());
                     }
                 }
             }
@@ -265,12 +265,12 @@ public class GPREListener
                         
                         if(this.plugin.dataStore.cfgBroadcastSell)
                         {
-                        	Bukkit.broadcastMessage(player.getDisplayName() + " has made a subclaim access for sale at [" +
+                        	Bukkit.broadcastMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has made a subclaim access for sale at [" +
                                     player.getLocation().getWorld() + ", " +
                                     "X: " + player.getLocation().getBlockX() + ", " +
                                     "Y: " + player.getLocation().getBlockY() + ", " +
                                     "Z: " + player.getLocation().getBlockZ() + "] " +
-                                    "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                    "Price: " + ChatColor.GREEN + price + " " + GPRealEstate.econ.currencyNamePlural());
                         }
                     }
                 }
@@ -289,8 +289,8 @@ public class GPREListener
     {
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
         {
-            Material type = event.getClickedBlock().getType();
-            if ((type == Material.SIGN) || (type == Material.WALL_SIGN))
+            //Material type = event.getClickedBlock().getType();
+            if (event.getClickedBlock().getState() instanceof Sign)
             {
                 Sign sign = (Sign)event.getClickedBlock().getState();
                 if ((sign.getLine(0).equalsIgnoreCase(this.plugin.dataStore.cfgSignShort)) || (sign.getLine(0).equalsIgnoreCase(this.plugin.dataStore.cfgSignLong)))
@@ -395,6 +395,20 @@ public class GPREListener
                                                             "Y: " + player.getLocation().getBlockY() + ", " +
                                                             "Z: " + player.getLocation().getBlockZ() + "] " +
                                                             "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                            
+                                            if(this.plugin.dataStore.cfgMessageOwner)
+                                            {
+                                            	Player oldOwner = Bukkit.getPlayer(sign.getLine(2));
+                                            	if(oldOwner != null)
+                                            	{
+                                            		oldOwner.sendMessage(this.plugin.dataStore.chatPrefix + ChatColor.AQUA + player.getDisplayName() + " has purchased your claim at " +
+                                                            "[" + player.getLocation().getWorld().getName() + ", " +
+                                                            "X: " + player.getLocation().getBlockX() + ", " +
+                                                            "Y: " + player.getLocation().getBlockY() + ", " +
+                                                            "Z: " + player.getLocation().getBlockZ() + "] for " +
+                                                            "Price: " + price + " " + GPRealEstate.econ.currencyNamePlural());
+                                            	}
+                                            }
                                         }
                                         else
                                         {
